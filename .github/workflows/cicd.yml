@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   # set your bucket here (or reference another secret/env)
   BUCKET_NAME: find_zubair_test/dataproc_work
@@ -17,6 +21,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Check OIDC token
+      run: |
+        echo "Token: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
+        echo "URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
 
     - id: auth
       uses: google-github-actions/auth@v2.0.0  
