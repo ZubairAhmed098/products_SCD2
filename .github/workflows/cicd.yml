@@ -18,11 +18,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v1
+    - id: auth
+      uses: google-github-actions/auth@v2.0.0  
       with:
-        # Service account key JSON, stored as a repo secret
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        workload_identity_provider: 'projects/611054035776/locations/global/workloadIdentityPools/github-pool/providers/github'
+        service_account: '611054035776-compute@developer.gserviceaccount.com'
 
     - name: Set up gcloud & gsutil
       uses: google-github-actions/setup-gcloud@v2
